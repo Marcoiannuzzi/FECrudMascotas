@@ -17,6 +17,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 
 //Modulos
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 //Componentes
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -41,7 +42,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     MatSnackBarModule,
     MatProgressBarModule,
     MatGridListModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
     MatSlideToggleModule,
@@ -58,7 +60,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     SpinnerComponent,
     MatProgressBarModule,
     MatGridListModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
 })
 export class SharedModule { }

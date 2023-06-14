@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Mascota } from 'src/app/interfaces/mascota';
+import { MascotaService } from 'src/app/services/mascota.service';
 
 @Component({
   selector: 'app-agregar-editar-mascota',
   templateUrl: './agregar-editar-mascota.component.html',
   styleUrls: ['./agregar-editar-mascota.component.css']
 })
-export class AgregarEditarMascotaComponent {
+export class AgregarEditarMascotaComponent implements OnInit{
   loading:boolean = false;
   form : FormGroup;
 
-  constructor(private fb: FormBuilder){ 
+  constructor(private fb: FormBuilder, private mascotaService: MascotaService, private _snackBar: MatSnackBar, private router: Router){ 
     this.form = this.fb.group({
       nombre:['', Validators.required],
       raza:['', Validators.required],
@@ -19,6 +22,8 @@ export class AgregarEditarMascotaComponent {
       edad:['', Validators.required],
       peso:['', Validators.required],
     });
+  }
+  ngOnInit(): void {
   }
 
 
@@ -31,6 +36,17 @@ export class AgregarEditarMascotaComponent {
       peso : this.form.get('peso')?.value
     }
 
-    console.log(mascota);
+    this.mascotaService.addMascota(mascota).subscribe((data) => {
+    });
+    this.router.navigate(['/listadoMascotas']);
+    this.mensajeExito()
+  }
+
+
+  mensajeExito(){
+    setTimeout(() => {
+      this._snackBar.open('La mascota fue creada con exito', '',{duration:2500});
+    },1000)
+
   }
 }
